@@ -1,0 +1,858 @@
+{
+	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	// Below copied from https://code.visualstudio.com/docs/editor/userdefinedsnippets
+	// Grammar
+	// Below is the EBNF (extended Backus-Naur form) for snippets. With \ (backslash), you can escape $, }, and \. Within choice elements, the backslash also escapes comma and pipe characters.
+	// any         ::= tabstop | placeholder | choice | variable | text
+	// tabstop     ::= '$' int
+	// 				| '${' int '}'
+	// 				| '${' int  transform '}'
+	// placeholder ::= '${' int ':' any '}'
+	// choice      ::= '${' int '|' text (',' text)* '|}'
+	// variable    ::= '$' var | '${' var '}'
+	// 				| '${' var ':' any '}'
+	// 				| '${' var transform '}'
+	// transform   ::= '/' regex '/' (format | text)+ '/' options
+	// format      ::= '$' int | '${' int '}'
+	// 				| '${' int ':' '/upcase' | '/downcase' | '/capitalize' | '/camelcase' | '/pascalcase' '}'
+	// 				| '${' int ':+' if '}'
+	// 				| '${' int ':?' if ':' else '}'
+	// 				| '${' int ':-' else '}' | '${' int ':' else '}'
+	// regex       ::= JavaScript Regular Expression value (ctor-string)
+	// options     ::= JavaScript Regular Expression option (ctor-options)
+	// var         ::= [_a-zA-Z] [_a-zA-Z0-9]*
+	// int         ::= [0-9]+
+	// text        ::= .*
+	// if          ::= text
+	// else        ::= text
+	
+
+
+
+	"snippet: colorful embed": {
+	"prefix": "embed",
+	"body": [
+		"import IPython",
+		"IPython.embed(colors=${1|\"Linux\",\"LightBG\",\"Neutral\",\"NoColor\"|})",
+	],
+	"description": "insert embed with syntax color"
+	},
+
+
+	"snippet: efficient boolean masking in for loop for batch computation": {
+		"prefix": ["mask", "for", "smart", "clever", "snippet"],
+		"body": [
+			"mask = np.ones(shape).astype(bool)",
+			"for j in List",
+			"\t# note: keep track of and update a global boolean mask for batch computation",
+			"\tinputs_m = inputs[mask]  # inputs are dynamically changing",
+			"\tmask_j = function(inputs_m, other_args[j]) >= 0",
+			"\tmask[mask] = mask[mask] * mask_j"
+		],
+		"description": "cleverly use boolean numpy mask to dynamically indexing/reducing the elements to compute",
+	},
+
+	"snippet: class inheritance":{
+		"prefix": "class",
+		"body": [
+			"class ${2:classname} (${1:parentclass}):",
+			"\tdef __init__(self, **kwargs):",
+			"\t\tsuper(${2:classname}, self).__init__()",
+		],
+		"description": "declare a child class",
+	},
+
+
+	"snippet: construct argument parser":{
+		"prefix": ["argparse", "parser"],
+		"body": [
+			"import argparse",
+			"parser = argparse.ArgumentParser()",
+			"parser.add_argument(\"-v\", \"--verbose\", action=\"store_true\", help=\"verbose printing/logging\")",
+			"args = parser.parse_args()",
+		],
+		"description": "template for argument parser",
+	},
+
+	"snippet: add an action arg":{
+		"prefix": ["parser", "args", "arg"],
+		"body": [
+			"parser.add_argument(\"-$1\", \"--$2\", action=\"store_true\", help=\"$3\")",
+		],
+		"description": "action arg",
+	},
+
+	"snippet: add an input arg":{
+		"prefix": ["parser", "argparse", "args", "arg"],
+		"body": [
+			"parser.add_argument(\"-$1\", \"--$2\", type=${3|str,int,float|}, ${4:default=}, help=\"$5\")",
+		],
+		"description": "input arg",
+	},
+
+    "Parser: add an input arg (full, indented)": {
+        "prefix": ["parser", "argparse", "args", "arg"],
+        "body": [
+            "parser.add_argument(\"-$1\",",
+            "\t\"--$2\",",
+            "\ttype=${3|str,int,float|},",
+            "\t${4:default=},",
+            "\thelp=\"$5\")"
+        ],
+        "description": "input arg",
+    },
+
+    "Parser: add an input arg (quick, indented)": {
+        "prefix": ["parser", "argparse", "args", "arg"],
+        "body": [
+            "parser.add_argument(\"--$1\",",
+            "\ttype=${2|str,int,float|},",
+            "\t${3:default=},",
+            "\thelp=\"$4\")"
+        ],
+        "description": "input arg",
+    },
+
+	"snippet: add subplots":{
+		"prefix": ["subplot", "plot", "plt", "fig"],
+		"body": [
+			"$1, $2 = plt.subplots()",
+		],
+		"description": "add subplots",
+	},
+
+    "gridspec subplot": {
+        "prefix": "grid",
+        "body": [
+            "from matplotlib.gridspec import GridSpec",
+            "fig = plt.figure(layout=\"constrained\")",
+            "gs = GridSpec(nrows=${1:2}, ncols=${2:3}, figure=fig)",
+            "ax = fig.add_subplot(gs[0,0])",
+            "ax_merge_row = fig.add_subplot(gs[0:2,0])",
+        ],
+        "description": "more flexible subplot"
+    },
+
+	"snippet: plot 2d data in subplot":{
+		"prefix": ["subplot", "plot", "plt", "fig"],
+		"body": [
+            "# zorder: Patch/PatchCollection=1, Line2D/LineCollection=2, Text=3",
+			"ax.plot($1, $2, marker=$3, color=$4, linestyle=$5, linewidth=$6, markersize=$7,label=$8,zorder=$9)",
+		],
+		"description": "plot 2d subplot",
+	},
+
+    "snippet: scatter plot": {
+        "prefix": ["scatter", "plot", "ax", "plt", "snippet", "fig"],
+        "body": [
+            "ax.scatter(${1:x_coords}, ${2:y_coords}, color=\"${3|b,g,r,c,m,y,k,w|}\", zorder=${4:zorder}, marker=\"${5|o,.,v,^,<,>,1,2,3,4,8,s,p,P,*,h,H,+,x,X,D,d|}\", label=${6:label}, s=${7:markersize})"
+        ]
+    },
+
+	"snippet: load pickle/dill data":{
+		"prefix": ["with", "load", "pickle", "dill"],
+		"body": [
+			"$1 = None",
+			"with open($2, ${3|\"r\",\"rb\"|}) as f:",
+			"\t$1 = ${4|dill,pickle|}.load(f)"
+		],
+		"description": "dill/pickle load",
+	},
+
+	"snippet: dump pickle/dill data":{
+		"prefix": ["with", "dump", "pickle", "dill"],
+		"body": [
+			"with open(${1:filepath}, ${2|\"w\",\"wb\"|}) as f:",
+			"\t${3|dill,pickle|}.dump(${4:data_obj}, f)"
+		],
+		"description": "dill/pickle dump",
+	},
+
+	"snippet: load json data":{
+		"prefix": ["with", "load", "json"],
+		"body": [
+			"$1 = None",
+			"with open($2, ${3|\"r\",\"rb\"|}) as f:",
+			"\t$1 = json.load(f)"
+		],
+		"description": "json load",
+	},
+
+	"snippet: dump json data":{
+		"prefix": ["with", "dump", "json"],
+		"body": [
+			"with open(${1:filepath}, ${2|\"w\",\"wb\"|}) as f:",
+			"\tjson.dump(${3:data_obj}, f, indent=2)"
+		],
+		"description": "json dump",
+	},
+
+	"snippet: declare pathlib path":{
+		"prefix": ["pathlib", "path", "Path"],
+		"body": [
+			"${1:varname} = pathlib.Path(${2:pathstr})",
+		],
+		"description": "declare a pathlib path",
+	},
+	
+	"snippet: subprocess popen terminal command":{
+		"prefix": ["subprocess", "process", "p", "os", "run", "cmd", "command"],
+		"body": [
+			"${1:process_name} = subprocess.Popen(${2:command_string_or_list},",
+			"\tshell=${3|True,False|},",
+			"\tstdin=subprocess.PIPE,",
+			"\tstdout=subprocess.PIPE,",
+			"\tstderr=subprocess.STDOUT",
+			")",
+			"stdout, stderr = $1.communicate()"
+		],
+		"description": "subprocess create a popen command",
+	},
+
+    "snippet: subproccess run system command": {
+        "prefix": ["subprocess", "process", "p", "os", "run", "cmd", "command"],
+        "body": [
+            "${2:process_name} = subprocess.run(${3:command_string_or_list},",
+            "\tshell=${1|True,False|},",
+            "\tcapture_output=True,",
+            "\tcheck=True,",
+            "\ttext=True, # Python >= 3.7",
+            ")",
+            "print(${2:process_name}.stdout)",
+            "print(${2:process_name}.stderr)"
+        ]
+    },
+
+	"snippet: format number padding":{
+		"prefix": [":", "format"],
+		"body": [
+			"{:0>${1:padding_size}d}",
+		],
+		"description": "pad zero to number (for file indexing)",
+	},
+
+    // https://mkaz.blog/working-with-python/string-formatting/
+	"snippet: round to nth decimal places":{
+		"prefix": [":"],
+		"body": [
+			"{:.${1:nth_decimal}f}",
+		],
+		"description": "round float to n-th decimal places",
+	},
+
+	"snippet: load csv":{
+		"prefix": ["csv"],
+		"body": [
+			"import csv, sys",
+			"${1:filepath} = \"${2}.csv\"",
+			"with open(${1}, newline=\"\") as f:",
+			"\treader = csv.reader(f, delimiter=\"${3::}\")",
+			"\ttry:",
+				"\t\tfor row in reader:",
+					"\t\t\tprint(row)",
+			"\texcept csv.Error as e:",
+				"\t\tsys.exit(\"file {}, line {}: {}\".format($1, reader.line_num, e))",
+		],
+		"description": "load csv",
+	},
+
+    "snippet: meshgrid points": {
+        "prefix": ["grid", "mesh", "np"], 
+        "body": [
+            "mesh_x, mesh_y = np.meshgrid(np.linspace($1), np.linspace($2))",
+            "p_x = mesh_x.ravel()",
+            "p_y = mesh_y.ravel()",
+            "# example in official documentation",
+            "positions = np.vstack([p_x, p_y])",
+            "# stack in a new dimension, more convenient",
+            "positions = np.dstack([p_x, p_y])",
+            "# stack without creating new axis",
+            "positions = np.column_stack([p_x, p_y])",
+        ]
+    },
+
+    "split inpt list for multiprocess": {
+        "prefix": ["split", "multiprocess", "mp", "linspace", "linspace_list"],
+        "body": [
+            "def linspace_list(inp_list:list, N:int):",
+            "\tsplit_inds = np.linspace(0, len(inp_list), N+1, dtype=int)",
+            "\tinp_list_split = []",
+            "\tfor i in range(N):",
+            "\t\tind_1 = split_inds[i]",
+            "\t\tind_2 = split_inds[i+1]",
+            "\t\tinp_list_split.append(inp_list[ind_1:ind_2])",
+            "\treturn inp_list_split"
+        ]
+    },
+
+    "multiprocessing template new": {
+        "prefix": ["multiprocessing", "mp"],
+        "body": [
+            "import os",
+            "from pathlib import Path",
+            "",
+            "cpu_load_ratio = 0.8",
+            "num_procs = int(os.cpu_count()*cpu_load_ratio)",
+            "mp_out_dir = Path(__file__).parent.joinpath(\"mp_out\")",
+            "mp_out_dir.mkdir(parents=True, exist_ok=True)",
+            "",
+            "def linspace_list(inp_list:list, N:int):",
+            "\t\"\"\"",
+            "\tdivide the inp_list evenly into N shares ",
+            "\t\"\"\"",
+            "\tsplit_inds = np.linspace(0, len(inp_list), N+1, dtype=int)",
+            "\tinp_list_split = []",
+            "\tfor i in range(N):",
+            "\t\tind_1 = split_inds[i]",
+            "\t\tind_2 = split_inds[i+1]",
+            "\t\tinp_list_split.append(inp_list[ind_1:ind_2])",
+            "\treturn inp_list_split",
+            "",
+            "inp_var_list_mp = linspace_list(inp_var_list, num_procs)",
+            "inp_kwargs = []",
+            "for itr in range(num_procs):",
+            "\tinp_kwargs.append({",
+            "\t\t\"kwarg1\": mp_out_dir.joinpath(\"out_{:0>4d}\".format(itr)).as_posix(),",
+            "\t\t\"kwarg2\": inp_var_list_mp[itr],",
+            "\t\t})",
+            "if args.use_mp:",
+            "\tpool = mp.Pool(processes=num_procs)",
+            "\tresults = pool.map(target_function_mp, inp_kwargs)",
+            "else:",
+            "\tprint(\"[INFO] running in single-process mode\")",
+            "\tpbar_single_process = tqdm(total=len(inp_kwargs), disable=not args.show_single_process_pbar)",
+            "\tfor idx_arg in range(len(inp_kwargs)):",
+            "\t\ttarget_function(**inp_kwargs[idx_arg])",
+            "\t\tpbar_single_process.update()",
+            "\tpbar_single_process.close()"
+        ]
+    },
+
+    "snippet: mutiprocess/single process switcher": {
+        "prefix": "mp",
+        "body": [
+            "import multiprocessing as mp",
+            "inp_args = []",
+            "for itr in range():",
+            "\tinp_args.append({",
+            "",
+            "\t\t})",
+            "if args.use_mp:",
+            "\tcpu_load_ratio = ${1:cpu_load_ratio}",
+            "\tpool = mp.Pool(processes=int(os.cpu_count()*cpu_load_ratio))",
+            "\tresults = pool.map({$2:mp_function_name}, inp_args)",
+            "else:",
+            "\tprint(\"[INFO] running in single-process mode\")",
+            "\tpbar_single_process = tqdm(total=len(inp_args), disable=not args.show_single_process_pbar)",
+            "\tfor idx_arg in range(len(inp_args)):",
+            "\t\t{$3:single_process_function_name}(**inp_args[idx_arg])",
+            "\t\tpbar_single_process.update()",
+            "\tpbar_single_process.close()"
+        ]
+    },
+
+    "snippet:tensorboard": {
+        "prefix": ["tensorboard", "writer"],
+        "body": [
+            "from torch.utils.tensorboard import SummaryWriter",
+            "writer = SummaryWriter(log_dir=${1:logdir_path})",
+        ]
+    },
+
+    "snippet:precision-recall": {
+        "prefix": ["precision", "recall", "sklearn"],
+        "body": [
+            "from sklearn.metrics import precision_recall_curve",
+            "precision, recall, thresholds = precision_recall_curve(y_true=${1:label.astype(float)},",
+            "\tprobas_pred=${2:prediction_probability})"
+        ]
+    },
+
+    "snippet: subplot template": {
+        "prefix": ["subplot", "plot", "plt", "fig"],
+        "body": [
+            "${1:fig}, ${2:ax} = plt.subplots()",
+            "${2:ax}.plot(${3:x_data}, ${4:y_data}, marker=\"${5|o,.,v,^,<,>,1,2,3,4,8,s,p,P,*,h,H,+,x,X,D,d|}\", color=\"${6|b,g,r,c,m,y,k,w|}\", linestyle=\"${7|-,--,-.,:,None|}\", linewidth=${8:2}, markersize=${9:2}, label=\"\")",
+            "${2:ax}.set_xlim([0, 1])",
+            "${2:ax}.set_ylim([0, 1])",
+            "${2:ax}.set_title(\"title\")",
+            "${2:ax}.set_xlabel(\"x_label\")",
+            "${2:ax}.set_ylabel(\"y_label\")",
+            "${2:ax}.legend()",
+			"${1:fig}.tight_layout()",
+            "${1:fig}.savefig(fname=${10:fname}, dpi=320, bbox_inches=\"tight\")",
+            "plt.close(${1:fig})"
+        ]
+    },
+
+	"snippet: plot font": {
+        "prefix": ["plt", "font"],
+        "body": [
+            "plt.rcParams[\"font.family\"] = \"serif\"",
+            "plt.rcParams[\"font.serif\"] = [\"Times New Roman\"] + plt.rcParams[\"font.serif\"]",
+            "plt.rcParams.update({\"font.size\": 12})"
+        ]
+    },
+
+    "snippet: plt legend": {
+        "prefix": ["legend", "plt", "fig"],
+        "body": [
+            "${1:plt}.legend(loc=${2|\"best\",\"upper left\",\"upper right\",\"lower left\",\"lower right\"|}, bbox_to_anchor=(${3:x}, ${4:y}, ${5:width}, ${6:height}))"
+        ]
+    },
+
+    "snippet: import matplotlib": {
+        "prefix": "import",
+        "body": [
+            "import matplotlib.pyplot as plt"
+        ]
+    },
+
+    "snippet: import pathlib.path": {
+        "prefix": ["import", "from", "pathlib", "path"],
+        "body": [
+            "from pathlib import Path"
+        ]
+    },
+
+    "snippet: import tqdm": {
+        "prefix": "import",
+        "body": [
+            "from tqdm.auto import tqdm"
+        ]
+    },
+
+    "snippet: import numpy": {
+        "prefix": "import",
+        "body": [
+            "import numpy as np"
+        ]
+    },
+
+    "snippet: main": {
+        "prefix": "if",
+        "body": [
+            "if __name__ == \"__main__\":"
+        ]
+    },
+
+    "snippet: print info": {
+        "prefix": ["print", "info"], 
+        "body": [
+            "print(\"[INFO] ${1}\")",
+        ]
+    },
+
+    "snippet: inspect pickle": {
+        "prefix": "inspect",
+        "body": [
+            "import dill",
+            "import IPython",
+            "",
+            "file_path = \"${1:file_path}\"",
+            "",
+            "${2:data_container} = None",
+            "with open(file_path, \"rb\") as f:",
+            "\t${2:data_container}=dill.load(f)",
+            "IPython.embed(colors=\"neutral\")",
+            "",
+            "print()"
+        ]
+    },
+
+    "snippet: separate dump pickle/json template": {
+        "prefix": ["dump", "json", "pickle", "dill", "with"],
+        "body": [
+            "import json",
+            "import subprocess",
+            "for key in ${1:dic_to_be_dumped}:",
+            "\ttry:",
+            "\t\twith open(logger.data_dir_path.joinpath(\"{}.json\".format(key)).as_posix(), \"w\") as f:",
+            "\t\t\tdata_file={",
+            "\t\t\t\tkey: ${1:dic_to_be_dumped}[key],",
+            "\t\t\t}",
+            "\t\t\tjson.dump(data_file, f)",
+            "\texcept:",
+            "\t\tprocess_name = subprocess.Popen(\"rm {}\".format(logger.data_dir_path.joinpath(\"{}.json\".format(key)).as_posix()),",
+            "\t\t\tshell=True,",
+            "\t\t\tstdin=subprocess.PIPE,",
+            "\t\t\tstdout=subprocess.PIPE,",
+            "\t\t\tstderr=subprocess.STDOUT",
+            "\t\t)",
+            "\t\tstdout, stderr = process_name.communicate()",
+            "\t\twith open(logger.data_dir_path.joinpath(\"{}.pickle\".format(key)).as_posix(), \"wb\") as f:",
+            "\t\t\tdata_file={",
+            "\t\t\t\tkey:${1:dic_to_be_dumped}[key],",
+            "\t\t\t}",
+            "\t\t\tdill.dump(data_file, f)"
+        ]
+    },
+
+    "snippet:dump data to json or pickle": {
+        "prefix": ["dump", "json", "pickle", "dill", "with"],
+        "body": [
+            "data_dir_path = pathlib.Path(data_dir)",
+			"data_dir_path.mkdir(exist_ok=True, parents=True)",
+            "dump_path = data_dir_path.joinpath(\"{}.json\".format(dataname))",
+            "try:",
+            "\twith open(dump_path.as_posix(), \"w\") as f:",
+            "\t\tjson.dump(data, f)",
+            "except:",
+            "\tdump_path.unlink(missing_ok=True)",
+            "\twith open(data_dir_path.joinpath(\"{}.pickle\".format(dataname)).as_posix(), \"wb\") as f:",
+            "\t\tdill.dump(data, f)"
+        ]
+    },
+
+    "snippet: construct new experiment logger": {
+        "prefix": "logger",
+        "body": [
+            "logger = ExperimentLogger(root_dir=${1}, script_path=__file__)",
+            "logger.init()"
+        ]
+    },
+
+    "snippet: string date time": {
+        "prefix": ["time", "datetime", "date", "now"],
+        "body": [
+            "from datetime import datetime",
+            "now = datetime.now() # current date and time",
+            "date_time = now.strftime(\"%m/%d/%Y_%H_%M_%S\")"
+        ]
+    },
+
+    "snippet: pillow read image": {
+        "prefix": ["img", "PIL", "im", "pillow", "pic", "load", "read"],
+        "body": [
+            "from PIL import Image",
+            "img_path = ${1:file_path}",
+            "${1:img_file} = Image.open(img_path)"
+        ]
+    },
+
+    "snippet: pillow save": {
+        "prefix": ["img", "PIL", "im", "pillow", "pic", "save", "write", "dump"],
+        "body": [
+            "from PIL import Image",
+            "# numpy array needs to be in range 0-255, 3 color channels",
+            "PIL_image = Image.fromarray(${1:numpy_array}.astype(\"uint8\"), \"RGB\")",
+            "PIL_image.save(${2:output_path})"
+        ]
+    },
+
+    "snippet: get user response": {
+        "prefix": ["input", "user", "raw", "proceed"],
+        "body": [
+            "\t\timport sys",
+            "\t\tuser_input = input(\"confirm (y/n)? \\n\")",
+            "\t\tif user_input == \"n\" or user_input == \"N\":",
+            "\t\t\tsys.exit(0)",
+            "\t\telse:",
+            "\t\t\tpass"
+        ]
+    },
+
+    "snippet: termcolor": {
+        "prefix": ["cprint", "termcolor", "term"],
+        "body": [
+            "from termcolor import cprint"
+        ]
+    },
+
+    "snippet: yaml load": {
+        "prefix": ["yaml", "load", "with"],
+        "body": [
+            "$2 = {}",
+            "with open($1, \"r\") as f:",
+            "\t$2 = yaml.safe_load(f)"
+        ]
+    },
+
+    "snippet: yaml dump": {
+        "prefix": ["yaml", "dump", "with"],
+        "body": [
+            "with open($1, \"w\") as f:",
+            "\tyaml.safe_dump(data=$2, stream=f, allow_unicode=True, indent=4)"
+        ]
+    },
+    "snippet: read/write txt file": {
+        "prefix": ["with", "write", "open", "load", "read"],
+        "body": [
+            "with open(${1:file_path}, mode=${2|\"r\",\"w\"|}, encoding=${3|\"utf-8\",\"gb18030\"|}, errors=${4|\"strict\",\"backslashreplace\",\"ignore\",\"namereplace\",\"replace\",\"xmlcharrefreplace\"|}) as f:",
+            "\tf.write(${5:text_data})"
+        ]
+    },
+
+    "snippet: shutil compress": {
+        "prefix": ["shutil", "zip", "compress", "archive", "tar", "gz", "snippet"],
+        "body": [
+            "shutil.make_archive(${2:archive_path_to_be_created}, ${3|\"zip\",\"tar\",\"gztar\",\"bztar\",\"xztar\"|}, ${1:source_folder_path})"
+        ]
+    },
+
+    "snippet: shutil move": {
+        "prefix": ["shutil", "move", "mv", "snippet"],
+        "body": [
+            "shutil.move(${1:old_name}, ${2:new_name})"
+        ],
+    },
+
+    "snippet: shutil copy": {
+        "prefix": ["shutil", "copy", "cp", "snippet"],
+        "body": [
+            "shutil.copy(${1:src_path}, ${2:target_dir})"
+        ],
+    },
+
+    "snippet: shutil copy dir": {
+        "prefix": ["shutil", "copy", "cp", "snippet"],
+        "body": [
+            "shutil.copytree(${1:src_dir}, ${2:target_dir})"
+        ],
+    },
+
+    "snippet: get and set figure size": {
+        "prefix": ["ax","plt","matplotlib","fig","size","snippet"],
+        "body": [
+            "def set_size(w,h, ax=None):",
+            "\t\"\"\" w, h: width, height in inches \"\"\"",
+            "\tif not ax: ax=plt.gca()",
+            "\tl = ax.figure.subplotpars.left",
+            "\tr = ax.figure.subplotpars.right",
+            "\tt = ax.figure.subplotpars.top",
+            "\tb = ax.figure.subplotpars.bottom",
+            "\tfigw = float(w)/(r-l)",
+            "\tfigh = float(h)/(t-b)",
+            "\tax.figure.set_size_inches(figw, figh)",
+            "",
+            "def get_ax_size(ax):",
+            "\tl = ax.figure.subplotpars.left",
+            "\tr = ax.figure.subplotpars.right",
+            "\tt = ax.figure.subplotpars.top",
+            "\tb = ax.figure.subplotpars.bottom",
+            "\tout = {",
+            "\t\t\"left\": l,",
+            "\t\t\"right\": r,",
+            "\t\t\"top\": t,",
+            "\t\t\"bottom\": b,",
+            "\t\t\"width\": r - l,",
+            "\t\t\"height\": t - b,",
+            "\t}",
+            "\treturn out"
+        ]
+    },
+
+    "snippet: template plot figure with split/outlier y axes": {
+        "prefix": ["fig", "split", "ax", "outlier", "snippet"],
+        "body": [
+            "fig, (ax_outlier, ax_main) = plt.subplots(2, 1, sharex=True, gridspec_kw={\"height_ratios\": [1, 10]})",
+            "fig.subplots_adjust(hspace=0.05)  # adjust space between axes",
+            "",
+            "ax_outlier.plot(np.linspace(0,10,10), np.linspace(0,100,10))",
+            "ax_main.plot(np.linspace(0,10,10), np.linspace(0,100,10))",
+            "ax_main.plot(np.linspace(0,10,10), np.linspace(0,5,10))",
+            "",
+            "#ax_outlier.figure.set_figheight(7)",
+            "",
+            "ax_outlier.set_ylim(5, 100)  # outliers only",
+            "ax_main.set_ylim(0, 5)  # most of the data",
+            "",
+            "# hide the spines between ax and ax_main",
+            "ax_outlier.spines.bottom.set_visible(False)",
+            "ax_main.spines.top.set_visible(False)",
+            "ax_outlier.xaxis.tick_top()",
+            "ax_outlier.tick_params(labeltop=False)  # don\"t put tick labels at the top",
+            "ax_main.xaxis.tick_bottom()",
+            "",
+            "",
+            "d = .5  # proportion of vertical to horizontal extent of the slanted line",
+            "kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12,",
+            "\t\t\t  linestyle=\"none\", color=\"k\", mec=\"k\", mew=1, clip_on=False)",
+            "ax_outlier.plot([0, 1], [0, 0], transform=ax_outlier.transAxes, **kwargs)",
+            "ax_main.plot([0, 1], [1, 1], transform=ax_main.transAxes, **kwargs)",
+            "",
+            "fig.savefig(\"plots/test_split_y.jpg\", dpi=300,bbox_inches=\"tight\")"
+        ]
+    },
+
+    "snippet: format matplotlib axis values": {
+        "prefix": ["ax", "plt", "plot", "snippet", "format", "label", "math", "tex"],
+        "body": [
+            "ax.ticklabel_format(style=\"sci\",scilimits=(0,0),axis=${1|\"x\",\"y\",\"both\"|})",
+            "ax.xaxis.major.formatter._useMathText = True"
+        ],
+        "description": "change value format in axes"
+    },
+
+    "snippet: contour plot example": {
+        "prefix": ["contour", "fig", "matplotlib", "im", "ct", "snippet"],
+        "body": [
+            "import matplotlib.pyplot as plt",
+            "import matplotlib.cm as cm",
+            "",
+            "delta = 0.025",
+            "x = np.arange(-3.0, 3.0, delta)",
+            "y = np.arange(-2.0, 2.0, delta)",
+            "X, Y = np.meshgrid(x, y)",
+            "Z1 = np.exp(-X**2 - Y**2)",
+            "Z2 = np.exp(-(X - 1)**2 - (Y - 1)**2)",
+            "Z = (Z1 - Z2) * 2",
+            "fig, ax = plt.subplots()",
+            "CS = ax.contour(X, Y, Z)",
+            "ax.clabel(CS, inline=True, fontsize=10)",
+            "ax.set_title(\"Simplest default with labels\")"
+        ]
+    },
+
+    "snippet: contour plot filled with colors": {
+        "prefix": ["contourf", "contour", "plot", "snippet", "matplotlib", "plt"],
+        "body": [
+            "import matplotlib.pyplot as plt",
+            "import matplotlib as mpl",
+            "delta = 0.025",
+            "x = np.arange(-3.0, 3.0, delta)",
+            "y = np.arange(-2.0, 2.0, delta)",
+            "X, Y = np.meshgrid(x, y)",
+            "Z1 = np.exp(-X**2 - Y**2)",
+            "Z2 = np.exp(-(X - 1)**2 - (Y - 1)**2)",
+            "Z = (Z1 - Z2) * 2",
+            "fig, ax = plt.subplots()",
+            "CS = ax.contourf(X, Y, Z, cmap=mpl.colormaps[\"cool\"])",
+            "ax.set_title(\"Simplest default with labels\")",
+            "fig.colorbar(CS, ax=ax)",
+            "plt.close(fig=fig)"
+        ],
+        "description": "contour plot filled with colors"
+    },
+
+    "snippet: equal axes": {
+        "prefix": ["equal", "snippet", "ax"],
+        "body": [
+            "ax.set_aspect(\"equal\", adjustable=\"box\")"
+        ]
+    },
+    "snippet: unit test template": {
+        "prefix": "test",
+        "body": [
+            "import unittest",
+            "",
+            "class Test${1:Class}(unittest.TestCase):",
+            "\tdef setUp(self):",
+            "\t\tpass",
+            "",
+            "\tdef test_something(self):",
+            "\t\tpass",
+            "",
+            "if __name__ == \"__main__\":",
+            "\tunittest.main()",
+            ""
+        ],
+        "description": "unittest template "
+    },
+
+    "snippet: import networkx": {
+        "prefix": ["nx", "snippet", "networkx"],
+        "body": [
+            "import networkx as nx"
+        ]
+    },
+
+    "snippet: define partial function": {
+        "prefix": ["partial", "functools", "snippet"],
+        "body": [
+            "import functools",
+            "eval_func = functools.partial(${1:base_function}, ${2:*args}, ${3:**kwargs})"
+        ]
+    },
+
+    "snippet: find all substring": {
+        "prefix": ["findall","snippet","find"],
+        "body": [
+            "def findall(s:str, substr:str) -> List[int]:",
+            "\t\"\"\"Yields all the positions of",
+            "\tthe substr in the string s.",
+            "\t",
+            "\ttest = \"abbcbbef\"",
+            "",
+            "\t>> findall(test, \"bb\")",
+            "\t>> [1, 4]",
+            "",
+            "\tabbcbbef",
+            "\t ^  ^",
+            "\t\"\"\"",
+            "\ti = s.find(substr)",
+            "\tlocations = []",
+            "\twhile i != -1:",
+            "\t\tlocations.append(i)",
+            "\t\ti = s.find(substr, i+1)",
+            "\treturn locations",
+            ""
+        ]
+    },
+
+    "snippet: is English": {
+        "prefix": ["is", "snippet", "english", "eng", "Eng", "English"],
+        "body": [
+            "def isEnglish(s):",
+            "  return s.isascii()"
+        ]
+    },
+
+    "snippet: declare enum type": {
+        "prefix": ["enum", "snippet"],
+        "body": [
+            "from enum import Enum",
+            "class ${1:Direction}(Enum):",
+            "\tup = \"up\"",
+            "\tdown = \"down\"",
+            "reveal_type(${1:Direction}.up) "
+        ]
+    },
+
+    "snippet: sorted": {
+        "prefix": ["sorted", "sort", "snippet"],
+        "body": [
+            "student_tuples = [",
+            "\t(\"john\", \"A\", 15),",
+            "\t(\"jane\", \"B\", 12),",
+            "\t(\"dave\", \"B\", 10),",
+            "]",
+            "# by default, ascending order (small -> big)",
+            "# reverse=True, descending order (big -> small)",
+            "sorted(student_tuples, key=lambda student: student[2], reverse=True)"
+        ],
+        "description": "sort in increasing order by default"
+    },
+
+    "snippet: list conditional filtering": {
+        "prefix": ["if", "[", "in", "filter", "mask", "snippets"],
+        "body": [
+            "[x for x in ${1:source_list} if (${2:conditions})]"
+        ],
+        "description": "filtering list elements based on if conditions"
+    },
+
+    "debug python": {
+        "prefix": ["debug", "debugger", "debugpy", "listen"],
+        "body": [
+            "import debugpy",
+            "debugpy.listen(5678)",
+            "debugpy.wait_for_client()  # blocks execution until client is attached"
+        ],
+        "description": "in-line python debugger"
+    },
+
+}

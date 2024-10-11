@@ -1,0 +1,167 @@
+{
+    "editor.fontSize": 20,
+    "explorer.autoReveal": false,
+    "explorer.compactFolders": false,
+
+    //"debug.console.fontFamily": "Cascadia Code Light",
+    "debug.console.fontSize": 20,
+    //"debug.console.lineHeight": 21,
+    
+    // AUTO COMPLETE SECTION
+    // Controls if quick suggestions should show up while typing
+    //"editor.quickSuggestions": { "other": false, "comments": false, "strings": false },
+    //"editor.acceptSuggestionOnCommitCharacter": false,
+    // Controls if suggestions should be accepted with "Enter" - in addition to "Tab". Helps to avoid ambiguity between inserting new lines and accepting suggestions.
+    //"editor.acceptSuggestionOnEnter": "off",
+    // Controls the delay in ms after which quick suggestions will show up.
+    //"editor.quickSuggestionsDelay": 10,
+    // Enable word based suggestions
+    //"editor.wordBasedSuggestions": false
+    "terminal.integrated.fontSize": 18,
+    
+    "editor.wordWrap": "on",
+    "editor.wrappingStrategy": "advanced",
+  
+    "security.workspace.trust.enabled": false,
+  
+    // Defining custom colors instead of default "Rainbow" for dark backgrounds.
+    "indentRainbow.colors": [
+      "rgba(255,255,64,0.3)",
+      "rgba(127,255,127,0.3)",
+      "rgba(255,127,255,0.3)",
+      "rgba(79,236,236,0.3)"
+    ],
+    "indentRainbow.colorOnWhiteSpaceOnly": true,
+
+    // "python.analysis.typeCheckingMode": "off",
+    "python.analysis.diagnosticSeverityOverrides": {
+    "python.experiments.enabled": false,
+    },
+    // "python.analysis.logLevel": "Warning",
+    "extensions.ignoreRecommendations": true,
+    "commentStyler.useDrawer": false,
+    "editor.suggest.preview": true,
+    //"terminal.integrated.enableMultiLinePasteWarning": false,
+    "files.autoGuessEncoding": true,
+    "files.autoSave": "off",
+    "python.languageServer": "Pylance",
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.comments.insertSpace": false,
+    "jupyter.askForKernelRestart": false,
+    "[python]": {
+    },
+    "git.openRepositoryInParentFolders": "never",
+    "dev.containers.dockerPath": "/var/home/me/.local/bin/podman-host",
+    "remote.SSH.lockfilesInTmp": true,
+    "update.mode": "none",
+    "extensions.autoCheckUpdates": false,
+    "extensions.autoUpdate": "onlySelectedExtensions",
+    "python.defaultInterpreterPath": "/var/home/me/bin/pyenv/versions/3.11.3/bin/python",
+
+  // dark color theme
+    "workbench.colorTheme": "Kimbie Dark",
+    "workbench.colorCustomizations": {
+      "sideBar.background": "#000000",
+      "editor.background": "#000000",
+      "statusBar.background": "#000000",
+      // "badge.background": "#000000",
+      "gitDecoration.modifiedResourceForeground": "#ff9191",
+      "workbench.editor.decorations.badges": false,
+      "activityBar.background": "#000000",
+      "editorGroupHeader.tabsBackground": "#000000",
+      "editor.selectionBackground": "#694702",
+      //"editor.selectionHighlightBackground": "#694702",
+      //"editor.inactiveSelectionBackground":"#694702",
+      // tab font colors
+      "tab.activeBorder":"#ffffff",
+      "tab.inactiveForeground":"#ffffff",
+      "sideBar.foreground":"#c0c0c0",
+      "sideBarTitle.foreground":"#EEEE",
+      "list.hoverForeground":"#ffffff",
+      "tab.activeBackground": "#7c4242",
+      "gitDecoration.ignoredResourceForeground":  "#ffb3b3",
+  },
+  "indentRainbow.errorColor": "#000000",
+  
+  "workbench.list.openMode":"doubleClick",
+  "git.confirmSync": false,
+
+  // Light color theme
+  //"workbench.colorTheme": "Default Light Modern",
+  //"workbench.colorCustomizations":{
+  //  "editor.background": "#e9e211d7",
+  //  "sideBar.background": "#e3dcdc",
+  //  "editorGroupHeader.tabsBackground": "#f0ebeb",
+  //  "activityBar.background": "#dec2c2",
+  //  "gitDecoration.modifiedResourceForeground": "#000000",
+  //  "workbench.editor.decorations.badges": false,
+  //},
+
+  //"indentRainbow.errorColor": "#e9e211d7",
+    
+  "scm.defaultViewMode": "tree",
+  "markdown.preview.fontSize": 20,
+  "terminal.integrated.inheritEnv": false,
+  "markdownConverter.ConversionType": [
+    "HTML"
+  ],
+  "comment-formula.inline": "none",
+  "outline.collapseItems": "alwaysCollapse",
+  "outline.showVariables": false,
+  "codesnap.containerPadding": "0",
+  "codesnap.showWindowControls": false,
+  "codesnap.shutterAction": "copy",
+  "window.zoomLevel": 1,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "terminal.integrated.profiles.linux": {
+    "bash": {
+      "path": "bash",
+      "icon": "terminal-bash"
+    },
+    "zsh": {
+      "path": "zsh"
+    },
+    "fish": {
+      "path": "fish"
+    },
+    "tmux": {
+      "path": "tmux",
+      "icon": "terminal-tmux"
+    },
+    "pwsh": {
+      "path": "pwsh",
+      "icon": "terminal-powershell"
+    },
+    "screen": {
+      "path": "/usr/bin/screen"
+    }
+  },
+  // this is the only one that works, screen and tmux does not
+  "terminal.integrated.defaultProfile.linux": "bash",
+  
+  // disable annoying ssh disconnect popup dialogue
+  "window.dialogStyle": "custom",
+
+  // speed up by turning off unused modules
+  "editor.accessibilitySupport": "off", 
+  "telemetry.telemetryLevel": "crash",
+  "workbench.startupEditor": "none",
+  "files.exclude": {
+    "**/.trunk/*actions/": true,
+    "**/.trunk/*logs/": true,
+    "**/.trunk/*notifications/": true,
+    "**/.trunk/*out/": true,
+    "**/.trunk/*plugins/": true
+  },
+  "files.watcherExclude": {
+    "**/.trunk/*actions/": true,
+    "**/.trunk/*logs/": true,
+    "**/.trunk/*notifications/": true,
+    "**/.trunk/*out/": true,
+    "**/.trunk/*plugins/": true
+  },
+  "cmake.showOptionsMovedNotification": false,
+  "redhat.telemetry.enabled": false,
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+
+  }
