@@ -32,5 +32,13 @@
             "<p align=\"center\">",
             "</p>"
         ]
-    }
+    },
+
+    "GPT writing": {
+        "prefix": ["GPT"],
+        "body": [
+            "You are a helpful and friendly writing assistant. Revise the following writing. Correct any grammar errors. Revise it so that the writing sounds native, flow naturally, express the idea smoothly, and use short and concise sentences. Explain the changes you have made."
+        ],
+        "description": "revise writing"
+    },
 }

@@ -13,6 +13,26 @@
 	// 	"description": "Log output to console"
 	// }
 
+    "resize box": {
+        "prefix": ["resize", "box"],
+        "body": [
+            "\\resizebox{\\textwidth}{!}{%",
+            "}"
+        ]
+    },
+
+    "svg figure": {
+        "prefix": ["figure", "begin", "fig", "snippet", "svg", "vector"],
+        "body": [
+            "\\begin{figure*}[t]",
+            "\t\\centering  ",
+            "\t\\includesvg[width=\\textwidth]{path.svg}",
+            "\t\\caption{caption}",
+            "\t\\label{fig:label}",
+            "\\end{figure*}"
+        ]
+    },
+
     "snippet: figure": {
         "prefix": ["begin", "figure", "snippet"],
         "body": [

@@ -45,13 +45,14 @@
     "files.autoGuessEncoding": true,
     "files.autoSave": "off",
     "python.languageServer": "Pylance",
+    "python.terminal.activateEnvironment": true,
     "security.workspace.trust.untrustedFiles": "open",
     "editor.comments.insertSpace": false,
     "jupyter.askForKernelRestart": false,
     "[python]": {
     },
     "git.openRepositoryInParentFolders": "never",
-    "dev.containers.dockerPath": "/var/home/me/.local/bin/podman-host",
+    "dev.containers.dockerPath": "/var/home/drake/bin/podman-host",
     "remote.SSH.lockfilesInTmp": true,
     "update.mode": "none",
     "extensions.autoCheckUpdates": false,
@@ -163,5 +164,6 @@
   "cmake.showOptionsMovedNotification": false,
   "redhat.telemetry.enabled": false,
   "terminal.integrated.enableMultiLinePasteWarning": false,
+  "dev.containers.dockerSocketPath": "/run/user/1000/podman/podman.sock",
 
   }
