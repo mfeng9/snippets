@@ -855,4 +855,19 @@
         "description": "in-line python debugger"
     },
 
+    "mark line": {
+        "prefix": ["mark", "bookmark"],
+        "body": [
+            "def __LINE_${1:NAME}(): pass # ${2:line annotation}  "
+        ]
+    },
+
+    "mark section": {
+        "prefix": ["mark", "bookmark", "sec", "section"],
+        "body": [
+            "class __SECTION_${1:NAME}: pass # ${2:section annotation}"
+        ],
+        "description": "bookmark section"
+    },
+
 }

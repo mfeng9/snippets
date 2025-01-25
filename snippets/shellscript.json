@@ -111,4 +111,42 @@
         ],
         "description": "remove all sub-folders from the current working folder that match the input name"
     },
+    "latex build": {
+        "prefix": ["latex", "pdflatex", "tex"],
+        "body": [
+            "pdflatex -shell-escape -synctex=1 -interaction=nonstopmode ${1:filename.tex}"
+        ]
+    },
+    "distrobox run commands": {
+        "prefix": ["distrobox", "run", "enter"],
+        "body": [
+            "distrobox-enter --name ${1:ubuntu2310_base} -- ${2:/usr/local/texlive/2024/bin/x86_64-linux/pdflatex} -shell-escape -synctex=1 -interaction=nonstopmode ${3:filename}.tex"
+        ]
+    },
+
+    "python debug switcher": {
+        "prefix": "debug",
+        "body": [
+            "#!/bin/bash",
+            "",
+            "echo \"[Action Needed] need to launch the debugger client\"",
+            "",
+            "debug=nonempty # comment out to use normal mode",
+            "file_and_arguments=\"novel_downloader/cat_txt_files.py \\",
+            "\t--path ${HOME}/bookname \\",
+            "\t-udn",
+            "\"",
+            "port=5678",
+            "debug_config=\"-m debugpy --listen localhost:${port} --wait-for-client\"",
+            "",
+            "if [[ -n ${debug} ]]; then",
+            "\techo \"=========[DEBUG MODE]=========\"",
+            "\tpython ${debug_config} ${file_and_arguments}",
+            "else",
+            "\techo \"=========[NORMAL MODE]=========\"",
+            "\tpython ${file_and_arguments}",
+            "fi"
+        ],
+        "description": "switch between python debugger and runner"
+    },
 }
