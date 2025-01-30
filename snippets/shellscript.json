@@ -149,4 +149,11 @@
         ],
         "description": "switch between python debugger and runner"
     },
+
+    "run in new named screen without attach": {
+        "prefix": ["screen", "scr"],
+        "body": [
+            "screen -dmS ${1:ScreenName} conda run -n ${2:CondaEnv} --no-capture-output ${3:Command}"
+        ]
+    },
 }
